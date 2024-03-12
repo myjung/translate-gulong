@@ -159,7 +159,7 @@ class GulongPatcher:
             if last_hash != current_hash:
                 copyfile(assetbundle_path.joinpath("config"), self.backup_config_asset_path)
                 settings["LAST_UPDATED_HASH"] = current_hash
-        self.env = UnityPy.load(self.backup_config_asset_path)
+        self.env = UnityPy.load(str(self.backup_config_asset_path))
         # toml save
         with open(setting_path, mode="w", encoding="utf-8") as f:
             tomllib.dump({"local": settings}, f)
@@ -294,7 +294,7 @@ class PatchHelper:
             writer.writerow(["asset_name", "id", "field", "content"])
             for target in GulongMetaInfo.targets:
                 print(f"load {target.asset_name} : {target.path}")
-                csv_instance = CustomCsvDict(patcher.get_text(target.path))
+                csv_instance = CustomCsvDict(self.patcher.get_text(target.path))
                 for row in csv_instance.csv:
                     for field in target.fields:
                         if value := row[field].strip():
@@ -341,7 +341,7 @@ class PatchHelper:
                 self.patcher.set_text(battle_target, json.dumps(battle_dict, ensure_ascii=False))
                 print(battle_target, "Done")
 
-        patcher.save_asset(output_path)
+        self.patcher.save_asset(output_path)
 
 
 if __name__ == "__main__":
