@@ -12,7 +12,7 @@ pip install openai titoken
 
 /data/ : 게임과 관련된 각 데이터들이 들어있는 폴더
 
-/gulongpatcher : 구룡풍운록 번역에 사용할 파이썬 패키지
+/gulongpatcher : 고룡풍운록 번역에 사용할 파이썬 패키지
 
 /sampleconfig.toml : 패치 구동환경에 따른 로컬 설정 샘플
 
