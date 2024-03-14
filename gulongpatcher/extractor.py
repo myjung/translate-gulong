@@ -141,28 +141,18 @@ class GulongMetaInfo:
 
 
 class GulongPatcher:
-
-    def __init__(self, setting_path: pathlib.Path | str) -> None:
+    @staticmethod
+    def backup_asset(setting_path: pathlib.Path, target_path=pathlib.Path("./extracted_assets")) -> None:
         settings = tomllib.load(setting_path)["local"]
         GULONG_PATH = pathlib.Path(settings["GULONG_PATH"])
         assetbundle_path = GULONG_PATH.joinpath("AssetBundles")
+        config = assetbundle_path.joinpath("config")
+        copyfile(config, target_path.joinpath("config"))
 
-        self.backup_config_asset_path = assetbundle_path.joinpath("backupconfig")
-        last_hash = settings.get("LAST_UPDATED_HASH", None)
-        if last_hash is None:
-            if not os.path.exists(self.backup_config_asset_path):
-                copyfile(assetbundle_path.joinpath("config"), self.backup_config_asset_path)
-            backupconfig_hash = hashlib.md5(open(self.backup_config_asset_path, mode="rb").read()).hexdigest()
-            settings["LAST_UPDATED_HASH"] = backupconfig_hash
-        else:
-            current_hash = hashlib.md5(open(assetbundle_path.joinpath("config"), mode="rb").read()).hexdigest()
-            if last_hash != current_hash:
-                copyfile(assetbundle_path.joinpath("config"), self.backup_config_asset_path)
-                settings["LAST_UPDATED_HASH"] = current_hash
-        self.env = UnityPy.load(str(self.backup_config_asset_path))
-        # toml save
-        with open(setting_path, mode="w", encoding="utf-8") as f:
-            tomllib.dump({"local": settings}, f)
+
+    def __init__(self, config_path:pathlib.Path) -> None:
+        self.env = UnityPy.load(str(config_path))
+
 
     def get_text(self, path: pathlib.Path | str) -> str:
         asset = self.env.container[path]

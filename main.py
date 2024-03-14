@@ -16,9 +16,10 @@ if __name__ == "__main__":
         handlers=[logging.StreamHandler()],
     )
     # 스트링 추출
-    gulong_patcher = GulongPatcher(setting_path)
+    GulongPatcher.backup_asset(setting_path)
+    gulong_patcher = GulongPatcher(pathlib.Path("./extracted_assets/config"))
     patch_helper = PatchHelper(GulongMetaInfo, gulong_patcher)
-    # patch_helper.extract_every_keywords_to_file("./data/all_strings.csv")
+    # patch_helper.extract_every_keywords_to_file("./data/extracted_strings.csv")
     
     # 스트링 교체
     patch_helper.patch("./data/translated.csv", "./build/config")
