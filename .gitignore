@@ -2,3 +2,4 @@ localconfig.toml
 __pycache__/
 !build/readme.txt
 build/*
+extracted_assets/*
