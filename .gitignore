@@ -5,3 +5,4 @@ build/*
 extracted_assets/*
 release/
 ~*.xlsx
+works/
