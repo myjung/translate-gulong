@@ -1,5 +1,5 @@
 [local]
 # GULONG_PATH = r"D:\\SteamLibrary\\steamapps\\common\\古龙风云录"
 GULONG_PATH = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\古龙风云录"
-API_KEY = "<your-api-key>"
+CLAUDE_API_KEY = "<your-api-key>"
 LAST_UPDATED_HASH = "if there is no backup of configs automatically made this field"

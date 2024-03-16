@@ -2,3 +2,4 @@ UnityPy
 toml
 requests
 aiohttp
+anthropic
