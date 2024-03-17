@@ -8,7 +8,7 @@ import logging
 import json
 import requests
 import aiohttp
-
+import anthropic
 
 class FreePapagoTranslator:
     def __init__(self):
@@ -105,6 +105,28 @@ async def translate_text(text, api_id: str, api_key: str, glossary_key: str = ""
     response = await make_api_request(api_endpoint, api_headers, data)
     translated_text = response["message"]["result"]["translatedText"]
     return translated_text
+
+
+class Claude3Api:
+    def __init__(self, api_key: str, max_tokens: int = 1001, temperature: int = 0):
+        self.client = anthropic.Anthropic(api_key=api_key)
+        self.max_tokens = max_tokens
+        self.temperature = temperature
+
+    def translate(
+        self, prompt: str, first_answer: str, text: str, input_max_tokens: int = None, input_temperature: int = None
+    ):
+        message = self.client.messages.create(
+            model="claude-3-opus-20240229",
+            max_tokens=input_max_tokens or self.max_tokens,
+            temperature=input_temperature or self.temperature,
+            messages=[
+                {"role": "user", "content": [{"type": "text", "text": prompt}]},
+                {"role": "assistant", "content": [{"type": "text", "text": first_answer}]},
+                {"role": "user", "content": [{"type": "text", "text": text}]},
+            ],
+        )
+        return message
 
 
 class GptChineseTranslator:

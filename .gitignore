@@ -6,3 +6,4 @@ extracted_assets/*
 release/
 ~*.xlsx
 works/
+*.log
