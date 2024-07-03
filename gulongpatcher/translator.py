@@ -216,10 +216,9 @@ class GptChineseTranslator:
                 return []
 
         return []
-
-
-if __name__ == "__main__":
-    # 로깅 설정
+    
+def gpt_test():
+        # 로깅 설정
     logging.basicConfig(
         level=logging.INFO,
         filename="translator.log",
@@ -242,3 +241,11 @@ Original: {"context":"dialogues", "texts":["確實"味"道很好……<color=#FF
 Expected Output: ["확실히 \\"맛\\"이 매우 좋네...<color=#FF0000><r>(阿飛)</r>가 열심히 연습했나 보네<color>.","그 쾌활왕에게는 이름이 있었어, 바로 <color=#FF0000><r>柴玉關</r></color>이었다."]"""
     translator = GptChineseTranslator()
     print(PROMPT)
+
+def papago_test():
+    from pprint import pprint
+    tr = FreePapagoTranslator("en", "ko")
+    pprint(tr.translate("Hello, world!").get("translatedText"))
+
+if __name__ == "__main__":
+    papago_test()
