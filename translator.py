@@ -105,6 +105,7 @@ def process_key(claude, prompt, first_answer, key):
         logging.info(f"{key} already exists")
         return key, False  # 파일이 이미 존재하므로 처리하지 않음
     logging.info(f"Processing {key}")
+    data = None
     try:
         logging.info(json.dumps(dialogues[key], ensure_ascii=False))
         data = claude.translate(
@@ -121,7 +122,10 @@ def process_key(claude, prompt, first_answer, key):
         return key, True  # 성공적으로 처리됨
     except Exception as e:
         with open(f"./works/{key}.txt", mode="w", encoding="utf-8") as f:
-            f.write(repr(data.content[0].text))
+            if data is not None:
+                f.write(repr(data.content[0].text))
+            else:
+                f.write(repr(e))
         logging.error(f"Error processing {key}: {e}")
         return key, False  # 처리 중 오류 발생
 

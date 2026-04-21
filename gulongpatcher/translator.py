@@ -111,7 +111,7 @@ async def translate_text(text, api_id: str, api_key: str, glossary_key: str = ""
                 logging.info(
                     f"len:{len(text)},text:{text}, stat: {response.status} ,translated:{resp['message']['result']['translatedText']}"
                 )
-                return await response.json()
+                return resp
 
     api_endpoint = "https://naveropenapi.apigw.ntruss.com/nmt/v1/translation"
     api_headers = {

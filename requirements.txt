@@ -3,3 +3,4 @@ toml
 requests
 aiohttp
 anthropic
+tqdm

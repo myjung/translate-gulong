@@ -4,8 +4,8 @@
 ## 프로젝트 환경설정
 ```bash
 pip install -r requirements.txt
-# 만약 openai를 번역 백엔드로 사용할 경우 openai, titoken을 추가 설치
-pip install openai titoken
+# 만약 openai를 번역 백엔드로 사용할 경우 openai, tiktoken을 추가 설치
+pip install openai tiktoken
 ```
 ## 프로젝트 구조
 /build/ : 최종적으로 패치가 완료된 결과물
